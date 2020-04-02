@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    LIGHT MODE-->
+    <color name="lightModeBackgroundColor">#FCFCFC</color>
+
+<!--    HEADER  -->
+    <color name="lightModeHeaderFontMainColor">#222222</color>
+    <color name="lightModeHeaderFontSubColor">#222222</color>
+
+    <color name="lightModeFontBlackColor">#222222</color>
+    <color name="lightModeFontWhiteColor">#FFFFFF</color>
+    <color name="lightModeEmptyMemoryButtonColor">#F7F7F7</color>
+    <color name="lightModeNumberButtonColor">#ECEFF4</color>
+    <color name="lightModeEraseButtonColor">#FF7C7C</color>
+    <color name="lightModeOperationButtonColor">#F0C200</color>
+    <color name="lightModeCalculateButtonColor">#03D17A</color>
+
+
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>

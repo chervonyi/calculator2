@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/buttonLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/operation_button">
+
+    <TextView
+        android:id="@+id/buttonText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="81"
+        android:textSize="30sp"
+        android:fontFamily="@font/ptsans_regular"
+        android:gravity="center"
+        android:textColor="@color/lightModeFontBlackColor"/>
+
+    <ImageView
+        android:id="@+id/buttonImage"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_sun"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"/>
+
+</RelativeLayout>

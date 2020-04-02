@@ -1,18 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/lightModeBackgroundColor">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <!--  CHANGE THIS ICON LATER      -->
+    <ImageButton
+        android:id="@+id/buttonChangeTheme"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_sun"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:padding="10dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/ptsans_regular"
+            android:textColor="@color/lightModeHeaderFontSubColor"
+            android:text="100+24"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:fontFamily="@font/ptsans_bold"
+            android:textColor="@color/lightModeHeaderFontMainColor"
+            android:textAlignment="center"
+            android:text="124"/>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:divider="@drawable/buttons_divider"
+        android:showDividers="middle"
+        android:layout_marginBottom="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/buttons_divider"
+            android:showDividers="middle"
+            android:gravity="center">
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_plus"
+                app:buttonBackground="@drawable/empty_memory_slot_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_plus"
+                app:buttonBackground="@drawable/empty_memory_slot_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_plus"
+                app:buttonBackground="@drawable/empty_memory_slot_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_erase"
+                app:buttonBackground="@drawable/erase_button"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:divider="@drawable/buttons_divider"
+            android:showDividers="middle">
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="7"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="8"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="9"
+                app:buttonBackground="@drawable/number_button"/>
+
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_division"
+                app:buttonBackground="@drawable/operation_button"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/buttons_divider"
+            android:showDividers="middle"
+            android:gravity="center">
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="4"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="5"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="6"
+                app:buttonBackground="@drawable/number_button"/>
+
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_multiply"
+                app:buttonBackground="@drawable/operation_button"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/buttons_divider"
+            android:showDividers="middle"
+            android:gravity="center">
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="1"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="2"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="3"
+                app:buttonBackground="@drawable/number_button"/>
+
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_subtract"
+                app:buttonBackground="@drawable/operation_button"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/buttons_divider"
+            android:showDividers="middle"
+            android:gravity="center">
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="."
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:text="0"
+                app:buttonBackground="@drawable/number_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_equal"
+                app:buttonBackground="@drawable/calculation_button"/>
+
+            <room106.calculator.CalculatorButton
+                android:layout_width="@dimen/calculatorButtonSize"
+                android:layout_height="@dimen/calculatorButtonSize"
+                app:src="@drawable/ic_plus_white"
+                app:buttonBackground="@drawable/operation_button"/>
+
+        </TableRow>
+    </TableLayout>
+
+
+</LinearLayout>
