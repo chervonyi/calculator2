@@ -4,5 +4,12 @@
         <attr name="text" format="string"/>
         <attr name="src" format="reference"/>
         <attr name="buttonBackground" format="reference"/>
+        <attr name="type" format="enum">
+            <enum name="digit" value="0"/>
+            <enum name="operation" value="1"/>
+            <enum name="memory" value="2"/>
+            <enum name="erase" value="3"/>
+            <enum name="calculation" value="4"/>
+        </attr>
     </declare-styleable>
 </resources>
