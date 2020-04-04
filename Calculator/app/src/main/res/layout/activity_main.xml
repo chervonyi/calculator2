@@ -72,7 +72,7 @@
                 app:src="@drawable/ic_plus"
                 app:buttonBackground="@drawable/empty_memory_slot_button"
                 app:type="memory"
-                android:onClick="onClickMemoryButton"/>
+                android:onClick="onClickMemoryButton" />
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonMemory1"

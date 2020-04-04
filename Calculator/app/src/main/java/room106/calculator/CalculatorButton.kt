@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Debug
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -109,6 +110,23 @@ class CalculatorButton: RelativeLayout {
                 // TODO Show number
                 buttonImage.visibility = View.INVISIBLE
                 buttonText.text = decimalFormat.format(savedNumber)
+
+                when {
+                    buttonText.text.length < 3 -> {
+                        // Standard
+                        buttonText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30f)
+                    }
+                    buttonText.text.length < 4 -> {
+                        buttonText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26f)
+                    }
+                    buttonText.text.length < 5 -> {
+                        buttonText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
+                    }
+                    else -> {
+                        buttonText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+                    }
+                }
+
                 buttonText.visibility = View.VISIBLE
 
             }

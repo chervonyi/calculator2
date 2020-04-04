@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
         memorySlots.add(findViewById(R.id.buttonMemory0))
         memorySlots.add(findViewById(R.id.buttonMemory1))
         memorySlots.add(findViewById(R.id.buttonMemory2))
+
+        // Assign Long Click Listener to memory buttons
+        for (memoryButton in memorySlots) {
+            memoryButton.setOnLongClickListener(onLongClickOnMemorySlotButton)
+        }
     }
 
 
@@ -78,12 +83,36 @@ class MainActivity : AppCompatActivity() {
             var value = 0.0
             try {
                 value = calculator.calculate(expressionTextView.text.toString())
-            } catch (e: CalculatorSyntaxException) {}
+
+                expressionTextView.text = ""
+                resultTextView.text = ""
+            } catch (e: CalculatorSyntaxException) {
+                expressionTextView.text = ""
+                resultTextView.text = ""
+            }
 
             saveNumberAt(value, position)
         } else {
             useNumberFrom(position)
         }
+    }
+
+    private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
+        val position = resources.getResourceName(it.id).last().toString().toInt()
+
+        var value = 0.0
+        try {
+            value = calculator.calculate(expressionTextView.text.toString())
+
+            expressionTextView.text = ""
+            resultTextView.text = ""
+        } catch (e: CalculatorSyntaxException) {
+            expressionTextView.text = ""
+            resultTextView.text = ""
+        }
+
+        saveNumberAt(value, position)
+        true
     }
 
     fun onClickEraseButton(v: View) {
