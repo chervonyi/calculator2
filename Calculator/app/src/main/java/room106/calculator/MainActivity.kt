@@ -14,37 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var expressionTextView: TextView
     private lateinit var resultTextView: TextView
 
-    // Memory Slot Buttons
-    private lateinit var buttonMemory1 : CalculatorButton
-    private lateinit var buttonMemory2 : CalculatorButton
-    private lateinit var buttonMemory3 : CalculatorButton
-
-    // Digits
-    private val numsId = arrayOf(
-        R.id.buttonNum0,
-        R.id.buttonNum1,
-        R.id.buttonNum2,
-        R.id.buttonNum3,
-        R.id.buttonNum4,
-        R.id.buttonNum5,
-        R.id.buttonNum6,
-        R.id.buttonNum7,
-        R.id.buttonNum8,
-        R.id.buttonNum9
-    )
-    private lateinit var buttonNums: ArrayList<CalculatorButton>
-
-    // Operations
-    private lateinit var buttonOpDivision : CalculatorButton
-    private lateinit var buttonOpMultiply : CalculatorButton
-    private lateinit var buttonOpSubtract : CalculatorButton
-    private lateinit var buttonOpAdd : CalculatorButton
-
-    // Other
-    private lateinit var buttonErase : CalculatorButton
-    private lateinit var buttonCalculation : CalculatorButton
-    private lateinit var buttonDecimalPoint : CalculatorButton
-
     // Calculator Engine
     private val calculator = Calculator()
 
@@ -56,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val DIVISION_CHARACTER = "\u00F7"
     private val MINUS_CHARACTER = "\u002D"
     private val PLUS_CHARACTER = "\u002B"
+    private val DECIMAL_POINT = "."
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,68 +37,33 @@ class MainActivity : AppCompatActivity() {
         expressionTextView.text = ""
         resultTextView.text = "0"
 
-
-        buttonMemory1 = findViewById(R.id.buttonMemory1)
-        buttonMemory2 = findViewById(R.id.buttonMemory2)
-        buttonMemory3 = findViewById(R.id.buttonMemory3)
-
-        buttonNums = ArrayList()
-        for (id in numsId) {
-            buttonNums.add(findViewById<CalculatorButton>(id).apply {
-                // Instantly connect appropriate listener
-                setOnClickListener(numsOnClickListener)
-            })
-        }
-
-        buttonOpDivision = findViewById(R.id.buttonOpDivision)
-        buttonOpMultiply = findViewById(R.id.buttonOpMultiply)
-        buttonOpSubtract = findViewById(R.id.buttonOpSubtract)
-        buttonOpAdd = findViewById(R.id.buttonOpAdd)
-
-        buttonErase = findViewById(R.id.buttonErase)
-        buttonCalculation = findViewById(R.id.buttonCalculation)
-        buttonDecimalPoint = findViewById(R.id.buttonDecimalPoint)
-
-
-        // Connect listeners
-        buttonMemory1.setOnClickListener(memoryOnClickListener)
-        buttonMemory2.setOnClickListener(memoryOnClickListener)
-        buttonMemory3.setOnClickListener(memoryOnClickListener)
-
-        buttonOpDivision.setOnClickListener(operatorsOnClickListener)
-        buttonOpMultiply.setOnClickListener(operatorsOnClickListener)
-        buttonOpSubtract.setOnClickListener(operatorsOnClickListener)
-        buttonOpAdd.setOnClickListener(operatorsOnClickListener)
-
-        buttonErase.setOnClickListener(eraseOnClickListener)
-        buttonCalculation.setOnClickListener(calculationOnClickListener)
-        buttonDecimalPoint.setOnClickListener(decimalPointOnClickListener)
     }
 
 
     //region Listeners
-    private val numsOnClickListener = View.OnClickListener {
-        appendDigit((it as CalculatorButton).getText())
+    fun onClickDigit(v: View) {
+        appendDigit((v as CalculatorButton).getText())
     }
 
-    private val operatorsOnClickListener = View.OnClickListener {
-        when (it.id) {
-            R.id.buttonOpDivision -> appendDigit(DIVISION_CHARACTER)
-            R.id.buttonOpMultiply -> appendDigit(MULTIPLY_CHARACTER)
-            R.id.buttonOpSubtract -> appendDigit(MINUS_CHARACTER)
-            R.id.buttonOpAdd -> appendDigit(PLUS_CHARACTER)
+    fun onClickOperationButton(v: View) {
+        when (v.id) {
+            R.id.buttonOpDivision   -> appendDigit(DIVISION_CHARACTER)
+            R.id.buttonOpMultiply   -> appendDigit(MULTIPLY_CHARACTER)
+            R.id.buttonOpSubtract   -> appendDigit(MINUS_CHARACTER)
+            R.id.buttonOpAdd        -> appendDigit(PLUS_CHARACTER)
+            R.id.buttonDecimalPoint -> appendDigit(DECIMAL_POINT)
         }
     }
 
-    private val memoryOnClickListener = View.OnClickListener {
+    fun onClickMemoryButton(v: View) {
         Log.d("TEST", "Clicked on memory button!")
     }
 
-    private val eraseOnClickListener = View.OnClickListener {
+    fun onClickEraseButton(v: View) {
         eraseLastDigit()
     }
 
-    private val calculationOnClickListener = View.OnClickListener {
+    fun onClickCalculationButton(v: View) {
         try {
             val res = calculator.calculate(expressionTextView.text.toString())
 
@@ -138,10 +73,6 @@ class MainActivity : AppCompatActivity() {
             expressionTextView.text = ""
             resultTextView.text = ""
         }
-    }
-
-    private val decimalPointOnClickListener = View.OnClickListener {
-        appendDigit(".")
     }
     //endregion
 
@@ -161,7 +92,6 @@ class MainActivity : AppCompatActivity() {
 
         var str = c1.toString()
         var expression = expressionTextView.text.toString()
-        Log.d("TEST", "Expr: $expression")
 
         // Check on max length
         if (expression.length >= MAX_LENGTH) {

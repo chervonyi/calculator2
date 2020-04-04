@@ -71,7 +71,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_plus"
                 app:buttonBackground="@drawable/empty_memory_slot_button"
-                app:type="memory"/>
+                app:type="memory"
+                android:onClick="onClickMemoryButton"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonMemory2"
@@ -79,7 +80,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_plus"
                 app:buttonBackground="@drawable/empty_memory_slot_button"
-                app:type="memory"/>
+                app:type="memory"
+                android:onClick="onClickMemoryButton"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonMemory3"
@@ -87,7 +89,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_plus"
                 app:buttonBackground="@drawable/empty_memory_slot_button"
-                app:type="memory"/>
+                app:type="memory"
+                android:onClick="onClickMemoryButton"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonErase"
@@ -95,7 +98,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_erase"
                 app:buttonBackground="@drawable/erase_button"
-                app:type="erase"/>
+                app:type="erase"
+                android:onClick="onClickEraseButton"/>
 
         </TableRow>
 
@@ -112,7 +116,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="7"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum8"
@@ -120,7 +125,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="8"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum9"
@@ -128,7 +134,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="9"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
 
             <room106.calculator.CalculatorButton
@@ -137,7 +144,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_division"
                 app:buttonBackground="@drawable/operation_button"
-                app:type="operation"/>
+                app:type="operation"
+                android:onClick="onClickOperationButton"/>
 
         </TableRow>
 
@@ -154,7 +162,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="4"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum5"
@@ -162,7 +171,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="5"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum6"
@@ -170,7 +180,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="6"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
 
             <room106.calculator.CalculatorButton
@@ -179,7 +190,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_multiply"
                 app:buttonBackground="@drawable/operation_button"
-                app:type="operation"/>
+                app:type="operation"
+                android:onClick="onClickOperationButton"/>
 
         </TableRow>
 
@@ -196,7 +208,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="1"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum2"
@@ -204,7 +217,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="2"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum3"
@@ -212,7 +226,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="3"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
 
             <room106.calculator.CalculatorButton
@@ -221,7 +236,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_subtract"
                 app:buttonBackground="@drawable/operation_button"
-                app:type="operation"/>
+                app:type="operation"
+                android:onClick="onClickOperationButton"/>
 
         </TableRow>
 
@@ -238,7 +254,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="."
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickOperationButton"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum0"
@@ -246,7 +263,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:text="0"
                 app:buttonBackground="@drawable/number_button"
-                app:type="digit"/>
+                app:type="digit"
+                android:onClick="onClickDigit"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonCalculation"
@@ -254,7 +272,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_equal"
                 app:buttonBackground="@drawable/calculation_button"
-                app:type="calculation"/>
+                app:type="calculation"
+                android:onClick="onClickCalculationButton"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonOpAdd"
@@ -262,7 +281,8 @@
                 android:layout_height="@dimen/calculatorButtonSize"
                 app:src="@drawable/ic_plus_white"
                 app:buttonBackground="@drawable/operation_button"
-                app:type="operation"/>
+                app:type="operation"
+                android:onClick="onClickOperationButton"/>
 
         </TableRow>
     </TableLayout>
