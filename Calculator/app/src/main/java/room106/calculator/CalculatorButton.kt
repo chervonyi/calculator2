@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import java.sql.Types
+import java.text.DecimalFormat
 
 class CalculatorButton: RelativeLayout {
 
@@ -31,6 +32,8 @@ class CalculatorButton: RelativeLayout {
     private lateinit var buttonImage: ImageView
 
     var type: Type? = null
+    private var savedNumber: Double = 0.0
+    private val decimalFormat = DecimalFormat("#.###")
 
     constructor(context: Context?, type: Type) : super(context) {
         initializeView(context)
@@ -91,6 +94,24 @@ class CalculatorButton: RelativeLayout {
             buttonText.text.toString()
         } else {
             ""
+        }
+    }
+
+    fun setMemory(value: Double) {
+        if (type!! == Type.MEMORY) {
+            savedNumber = value
+
+            if (savedNumber == 0.0) {
+                // TODO Show "+"
+                buttonImage.visibility = View.VISIBLE
+                buttonText.visibility = View.INVISIBLE
+            } else {
+                // TODO Show number
+                buttonImage.visibility = View.INVISIBLE
+                buttonText.text = decimalFormat.format(savedNumber)
+                buttonText.visibility = View.VISIBLE
+
+            }
         }
     }
 

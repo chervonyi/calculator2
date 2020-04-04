@@ -10,22 +10,34 @@ import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
 
-    // Header
+    // Views
     private lateinit var expressionTextView: TextView
     private lateinit var resultTextView: TextView
+    private var memorySlots = ArrayList<CalculatorButton>()
+
+
+
 
     // Calculator Engine
     private val calculator = Calculator()
 
     private val decimalFormat = DecimalFormat("#.###")
 
+    private var memory = ArrayList<Double>().apply {
+        add(0.0)
+        add(0.0)
+        add(0.0)
+    }
+
     private val MAX_LENGTH = 30
+    private val MEMORY_SLOTS_COUNT = memory.size
 
     private val MULTIPLY_CHARACTER = "\u00D7"
     private val DIVISION_CHARACTER = "\u00F7"
     private val MINUS_CHARACTER = "\u002D"
     private val PLUS_CHARACTER = "\u002B"
     private val DECIMAL_POINT = "."
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         expressionTextView.text = ""
         resultTextView.text = "0"
 
+        // Connect memory buttons
+        memorySlots.add(findViewById(R.id.buttonMemory0))
+        memorySlots.add(findViewById(R.id.buttonMemory1))
+        memorySlots.add(findViewById(R.id.buttonMemory2))
     }
 
 
@@ -56,7 +72,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickMemoryButton(v: View) {
-        Log.d("TEST", "Clicked on memory button!")
+        val position = resources.getResourceName(v.id).last().toString().toInt()
+
+        if (isMemorySlotEmpty(position)) {
+            var value = 0.0
+            try {
+                value = calculator.calculate(expressionTextView.text.toString())
+            } catch (e: CalculatorSyntaxException) {}
+
+            saveNumberAt(value, position)
+        } else {
+            useNumberFrom(position)
+        }
     }
 
     fun onClickEraseButton(v: View) {
@@ -76,6 +103,31 @@ class MainActivity : AppCompatActivity() {
     }
     //endregion
 
+
+    //region Memory Methods
+
+    private fun isMemorySlotEmpty(position: Int): Boolean {
+        return memory[position] == 0.0
+    }
+
+    private fun useNumberFrom(position: Int) {
+        appendDigit(decimalFormat.format(memory[position]))
+    }
+
+    private fun saveNumberAt(value: Double, position: Int) {
+        if (position in 0 until MEMORY_SLOTS_COUNT && value != 0.0) {
+            memory[position] = value
+            memorySlots[position].setMemory(value)
+        }
+    }
+
+    fun resetMemoryNumberAt(position: Int) {
+        memory[position] = 0.0
+        memorySlots[position].setMemory(0.0)
+    }
+
+
+    //endregion
 
     //region Supporting Methods
 
