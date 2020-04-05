@@ -5,23 +5,41 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DecimalFormat
+import kotlin.math.exp
 
 
 class MainActivity : AppCompatActivity() {
 
     // Views
-    private lateinit var expressionTextView: TextView
-    private lateinit var resultTextView: TextView
+    private lateinit var supportingTextView: TextView
+    private lateinit var mainTextView: TextView
     private var memorySlots = ArrayList<CalculatorButton>()
 
-
+    private lateinit var additionOperatorButton: CalculatorButton
+    private lateinit var subtractionOperatorButton: CalculatorButton
+    private lateinit var multiplicationOperatorButton: CalculatorButton
+    private lateinit var divisionOperatorButton: CalculatorButton
 
 
     // Calculator Engine
-    private val calculator = Calculator()
+    private var num1: Double? = null
+    private var operator: Operator? = null
+    private var numberIsSaved = false
 
+
+    enum class Operator {
+        ADDITION,
+        SUBTRACTION,
+        MULTIPLICATION,
+        DIVISION
+    }
+
+    private val calculator = Calculator()
     private val decimalFormat = DecimalFormat("#.###")
+
+
 
     private var memory = ArrayList<Double>().apply {
         add(0.0)
@@ -32,10 +50,6 @@ class MainActivity : AppCompatActivity() {
     private val MAX_LENGTH = 30
     private val MEMORY_SLOTS_COUNT = memory.size
 
-    private val MULTIPLY_CHARACTER = "\u00D7"
-    private val DIVISION_CHARACTER = "\u00F7"
-    private val MINUS_CHARACTER = "\u002D"
-    private val PLUS_CHARACTER = "\u002B"
     private val DECIMAL_POINT = "."
 
 
@@ -43,11 +57,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        expressionTextView = findViewById(R.id.expressionTextView)
-        resultTextView = findViewById(R.id.resultTextView)
+        supportingTextView = findViewById(R.id.supportingTextView)
+        mainTextView = findViewById(R.id.mainTextView)
+        additionOperatorButton = findViewById(R.id.buttonOpAdd)
+        subtractionOperatorButton = findViewById(R.id.buttonOpSubtract)
+        multiplicationOperatorButton = findViewById(R.id.buttonOpMultiply)
+        divisionOperatorButton = findViewById(R.id.buttonOpDivision)
 
-        expressionTextView.text = ""
-        resultTextView.text = "0"
+        supportingTextView.visibility = View.INVISIBLE
+        mainTextView.text = "0"
 
         // Connect memory buttons
         memorySlots.add(findViewById(R.id.buttonMemory0))
@@ -63,73 +81,74 @@ class MainActivity : AppCompatActivity() {
 
     //region Listeners
     fun onClickDigit(v: View) {
-        appendDigit((v as CalculatorButton).getText())
+        var expression = mainTextView.text.toString()
+        val typedDigit = (v as CalculatorButton).getText()
+
+        if (numberIsSaved) {
+            numberIsSaved = false
+            expression = ""
+        }
+
+        if (expression == "0") {
+            mainTextView.text = typedDigit
+        } else {
+            mainTextView.text = expression + typedDigit
+        }
+
+        highlightOperator(null)
     }
 
     fun onClickOperationButton(v: View) {
-        when (v.id) {
-            R.id.buttonOpDivision   -> appendDigit(DIVISION_CHARACTER)
-            R.id.buttonOpMultiply   -> appendDigit(MULTIPLY_CHARACTER)
-            R.id.buttonOpSubtract   -> appendDigit(MINUS_CHARACTER)
-            R.id.buttonOpAdd        -> appendDigit(PLUS_CHARACTER)
-            R.id.buttonDecimalPoint -> appendDigit(DECIMAL_POINT)
+        val typedNumber = mainTextView.text.toString().toDouble()
+        val selectedOperator = getOperatorType(v.id)
+
+        if (num1 == null) {
+            num1 = typedNumber
+            operator = selectedOperator
+            highlightOperator(operator)
+        } else {
+            val result = calculate(num1!!, typedNumber, operator)
+            num1 = result
+            displayResult(result)
+            operator = selectedOperator
+            highlightOperator(operator)
+        }
+        numberIsSaved = true
+    }
+
+    fun onClickCalculationButton(v: View) {
+        val typedNumber = mainTextView.text.toString().toDouble()
+
+        if (num1 == null && operator == null) {
+            return
+        } else {
+            Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
+            val result = calculate(num1!!, typedNumber, operator)
+            num1 = null
+            operator = null
+            displayResult(result)
+            numberIsSaved = true
         }
     }
 
     fun onClickMemoryButton(v: View) {
         val position = resources.getResourceName(v.id).last().toString().toInt()
 
-        if (isMemorySlotEmpty(position)) {
-            var value = 0.0
-            try {
-                value = calculator.calculate(expressionTextView.text.toString())
-
-                expressionTextView.text = ""
-                resultTextView.text = ""
-            } catch (e: CalculatorSyntaxException) {
-                expressionTextView.text = ""
-                resultTextView.text = ""
-            }
-
-            saveNumberAt(value, position)
-        } else {
-            useNumberFrom(position)
-        }
+        // TODO - Implement
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
         val position = resources.getResourceName(it.id).last().toString().toInt()
 
-        var value = 0.0
-        try {
-            value = calculator.calculate(expressionTextView.text.toString())
-
-            expressionTextView.text = ""
-            resultTextView.text = ""
-        } catch (e: CalculatorSyntaxException) {
-            expressionTextView.text = ""
-            resultTextView.text = ""
-        }
-
-        saveNumberAt(value, position)
+        // TODO - Implement
         true
     }
 
     fun onClickEraseButton(v: View) {
-        eraseLastDigit()
+        // TODO - Implement (clear all)
     }
 
-    fun onClickCalculationButton(v: View) {
-        try {
-            val res = calculator.calculate(expressionTextView.text.toString())
 
-            expressionTextView.text = decimalFormat.format(res)
-            resultTextView.text = ""
-        } catch (e: CalculatorSyntaxException) {
-            expressionTextView.text = ""
-            resultTextView.text = ""
-        }
-    }
     //endregion
 
 
@@ -140,7 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun useNumberFrom(position: Int) {
-        appendDigit(decimalFormat.format(memory[position]))
+        // TODO - Implement
     }
 
     private fun saveNumberAt(value: Double, position: Int) {
@@ -158,102 +177,48 @@ class MainActivity : AppCompatActivity() {
 
     //endregion
 
-    //region Supporting Methods
 
-    private fun preCalculation() {
 
-        try {
-            val res = calculator.calculate(expressionTextView.text.toString())
-            resultTextView.text = decimalFormat.format(res)
-        } catch (e: CalculatorSyntaxException) { }
+    //region Main methods
+
+    private fun appendDigit(digit: String) {
+        // TODO - Check on max length
+        mainTextView.append(digit)
     }
 
-
-    private fun appendDigit(c1: CharSequence) {
-
-        var str = c1.toString()
-        var expression = expressionTextView.text.toString()
-
-        // Check on max length
-        if (expression.length >= MAX_LENGTH) {
-            return
-        }
-
-        // Check on empty string of inputView
-        if (expression.isEmpty()) {
-            // One of these character cannot be the first one in the input string
-            if ("$PLUS_CHARACTER$MINUS_CHARACTER$DIVISION_CHARACTER$MULTIPLY_CHARACTER)".contains(str)) {
-                return
-            }
-        }
-
-        // Check if pointer does not make error
-        if (str == ".") {
-            // Put '0' before point to make input string like: "0."
-            if (isLastEquals(expression, "$PLUS_CHARACTER$MINUS_CHARACTER$DIVISION_CHARACTER$MULTIPLY_CHARACTER") || expression.isEmpty()) {
-                expression += "0"
-            }
-
-            else if (!isLastNumberWell() || isLastEquals(expression, ")")) {
-                return
-            }
-        }
-
-        // Check on main operation symbols
-        if ("$PLUS_CHARACTER$MINUS_CHARACTER$DIVISION_CHARACTER$MULTIPLY_CHARACTER".contains(str)) {
-            if (isLastEquals(expression, "$PLUS_CHARACTER$MINUS_CHARACTER$DIVISION_CHARACTER$MULTIPLY_CHARACTER")) {
-                expression = expression.dropLast(1)
-            } else if (isLastEquals(expression, ".")) {
-                return
-            }
-        }
-
-        // Check on "0" symbol
-        if (str == "0") {
-            if (expression.isEmpty() || isLastEquals(expression, "$PLUS_CHARACTER$MINUS_CHARACTER$DIVISION_CHARACTER$MULTIPLY_CHARACTER")) {
-                str += "."
-            }
-        }
-        expressionTextView.text = expression + str
-        preCalculation()
+    private fun appendDecimalPoint() {
+        // TODO - Implement
     }
 
-    private fun count(stringToCheck: String, symbol: String): Int {
-        return stringToCheck.length -
-                stringToCheck.replace(String.format("\\%s", symbol).toRegex(), "").length
-    }
-
-    private fun isLastNumberWell(): Boolean {
-        return count(getLastNumber(expressionTextView.text.toString()), ".") < 1
-    }
-
-    /**
-     * Returns the whole number (Including delimiter) like: "242.2", "1984", "0.001"
-     * @param input string to search for number
-     * @return string with necessary number
-     */
-    private fun getLastNumber(input: String): String {
-        var input = input
-        var num = ""
-        while (isLastEquals(input, "0123456789.")) {
-            num = input[input.length - 1].toString() + num
-            input = input.substring(0, input.length - 1)
+    private fun calculate(num1: Double, num2: Double, operator: Operator?): Double {
+        return when (operator) {
+            Operator.ADDITION -> num1 + num2
+            Operator.SUBTRACTION -> num1 - num2
+            Operator.MULTIPLICATION -> num1 * num2
+            Operator.DIVISION -> num1 / num2
+           else -> 0.0
         }
-        return num
     }
 
-    private fun isLastEquals(
-        stringToCheck: String,
-        set: String
-    ): Boolean {
-        return if (stringToCheck.isEmpty()) {
-            false
-        } else set.contains(stringToCheck[stringToCheck.length - 1].toString())
+    private fun getOperatorType(id: Int): Operator? {
+        return when(id) {
+            R.id.buttonOpAdd -> Operator.ADDITION
+            R.id.buttonOpSubtract -> Operator.SUBTRACTION
+            R.id.buttonOpMultiply -> Operator.MULTIPLICATION
+            R.id.buttonOpDivision -> Operator.DIVISION
+            else -> null
+        }
     }
 
-    private fun eraseLastDigit() {
-        expressionTextView.text = expressionTextView.text.dropLast(1)
-        preCalculation()
+    private fun highlightOperator(op: Operator?) {
+        additionOperatorButton.setActivationOperatorButton(op == Operator.ADDITION)
+        subtractionOperatorButton.setActivationOperatorButton(op == Operator.SUBTRACTION)
+        multiplicationOperatorButton.setActivationOperatorButton(op == Operator.MULTIPLICATION)
+        divisionOperatorButton.setActivationOperatorButton(op == Operator.DIVISION)
+    }
+
+    private fun displayResult(result: Double) {
+        mainTextView.text = decimalFormat.format(result)
     }
     //endregion
 }

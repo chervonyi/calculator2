@@ -14,6 +14,7 @@
     <color name="lightModeNumberButtonColor">#ECEFF4</color>
     <color name="lightModeEraseButtonColor">#FF7C7C</color>
     <color name="lightModeOperationButtonColor">#F0C200</color>
+    <color name="lightModeOperationActiveButtonColor">#956B00</color>
     <color name="lightModeCalculateButtonColor">#03D17A</color>
 
 
