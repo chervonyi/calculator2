@@ -255,7 +255,7 @@
                 app:text="."
                 app:buttonBackground="@drawable/number_button"
                 app:type="digit"
-                android:onClick="onClickOperationButton"/>
+                android:onClick="onClickDecimalPoint"/>
 
             <room106.calculator.CalculatorButton
                 android:id="@+id/buttonNum0"

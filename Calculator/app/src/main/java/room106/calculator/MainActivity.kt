@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DecimalFormat
-import kotlin.math.exp
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var operator: Operator? = null
     private var numberIsSaved = false
 
-
     enum class Operator {
         ADDITION,
         SUBTRACTION,
@@ -36,10 +33,7 @@ class MainActivity : AppCompatActivity() {
         DIVISION
     }
 
-    private val calculator = Calculator()
     private val decimalFormat = DecimalFormat("#.###")
-
-
 
     private var memory = ArrayList<Double>().apply {
         add(0.0)
@@ -49,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     private val MAX_LENGTH = 30
     private val MEMORY_SLOTS_COUNT = memory.size
-
     private val DECIMAL_POINT = "."
 
 
@@ -134,62 +127,103 @@ class MainActivity : AppCompatActivity() {
     fun onClickMemoryButton(v: View) {
         val position = resources.getResourceName(v.id).last().toString().toInt()
 
-        // TODO - Implement
+        if(isMemorySlotEmpty(position)) {
+
+            val typedNumber = mainTextView.text.toString().toDouble()
+
+            if (num1 == null && operator == null) {
+                saveNumberAt(typedNumber, position)
+            } else {
+                val result = calculate(num1!!, typedNumber, operator)
+                num1 = null
+                operator = null
+                displayResult(result)
+                numberIsSaved = true
+                saveNumberAt(result, position)
+            }
+
+            mainTextView.text = "0"
+        } else {
+            useNumberFrom(position)
+        }
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
         val position = resources.getResourceName(it.id).last().toString().toInt()
 
-        // TODO - Implement
+        val typedNumber = mainTextView.text.toString().toDouble()
+
+        if (num1 == null && operator == null) {
+            saveNumberAt(typedNumber, position)
+        } else {
+            val result = calculate(num1!!, typedNumber, operator)
+            num1 = null
+            operator = null
+            displayResult(result)
+            numberIsSaved = true
+            saveNumberAt(result, position)
+        }
+
+        mainTextView.text = "0"
+
         true
     }
 
     fun onClickEraseButton(v: View) {
-        // TODO - Implement (clear all)
+        mainTextView.text = "0"
+
+        if (operator != null) {
+            highlightOperator(operator)
+        }
     }
 
+    fun onClickDecimalPoint(v: View) {
 
+        var expression = mainTextView.text.toString()
+
+        if (!expression.contains(DECIMAL_POINT)) {
+            when {
+                expression.isEmpty() -> {
+                    expression = "0$DECIMAL_POINT"
+                }
+                numberIsSaved -> {
+                    numberIsSaved = false
+                    expression = "0$DECIMAL_POINT"
+                }
+                else -> {
+                    expression += DECIMAL_POINT
+                }
+            }
+        }
+
+        mainTextView.text = expression
+    }
     //endregion
 
 
     //region Memory Methods
-
     private fun isMemorySlotEmpty(position: Int): Boolean {
         return memory[position] == 0.0
     }
 
     private fun useNumberFrom(position: Int) {
-        // TODO - Implement
+        mainTextView.text = decimalFormat.format(memory[position])
+        highlightOperator(null)
+
+        // Test:?
+        numberIsSaved = true
     }
 
     private fun saveNumberAt(value: Double, position: Int) {
-        if (position in 0 until MEMORY_SLOTS_COUNT && value != 0.0) {
+        if (position in 0 until MEMORY_SLOTS_COUNT) {
             memory[position] = value
             memorySlots[position].setMemory(value)
         }
     }
-
-    fun resetMemoryNumberAt(position: Int) {
-        memory[position] = 0.0
-        memorySlots[position].setMemory(0.0)
-    }
-
-
     //endregion
 
 
-
     //region Main methods
-
-    private fun appendDigit(digit: String) {
-        // TODO - Check on max length
-        mainTextView.append(digit)
-    }
-
-    private fun appendDecimalPoint() {
-        // TODO - Implement
-    }
-
     private fun calculate(num1: Double, num2: Double, operator: Operator?): Double {
         return when (operator) {
             Operator.ADDITION -> num1 + num2

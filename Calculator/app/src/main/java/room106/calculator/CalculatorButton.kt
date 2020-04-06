@@ -103,11 +103,11 @@ class CalculatorButton: RelativeLayout {
             savedNumber = value
 
             if (savedNumber == 0.0) {
-                // TODO Show "+"
+                // Show "+"
                 buttonImage.visibility = View.VISIBLE
                 buttonText.visibility = View.INVISIBLE
             } else {
-                // TODO Show number
+                // Show number
                 buttonImage.visibility = View.INVISIBLE
                 buttonText.text = decimalFormat.format(savedNumber)
 
@@ -128,7 +128,6 @@ class CalculatorButton: RelativeLayout {
                 }
 
                 buttonText.visibility = View.VISIBLE
-
             }
         }
     }
