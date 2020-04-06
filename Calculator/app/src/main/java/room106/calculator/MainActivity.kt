@@ -170,11 +170,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEraseButton(v: View) {
-        mainTextView.text = "0"
+
+        if (mainTextView.text.isEmpty() || mainTextView.text == "0") {
+            // Total clear (saved num1 and saved operation)
+            operator = null
+            highlightOperator(null)
+            num1 = null
+            return
+        }
 
         if (operator != null) {
             highlightOperator(operator)
         }
+
+        mainTextView.text = "0"
     }
 
     fun onClickDecimalPoint(v: View) {
@@ -194,6 +203,9 @@ class MainActivity : AppCompatActivity() {
                     expression += DECIMAL_POINT
                 }
             }
+        }
+        else if (numberIsSaved) {
+            expression = "0$DECIMAL_POINT"
         }
 
         mainTextView.text = expression
@@ -229,7 +241,14 @@ class MainActivity : AppCompatActivity() {
             Operator.ADDITION -> num1 + num2
             Operator.SUBTRACTION -> num1 - num2
             Operator.MULTIPLICATION -> num1 * num2
-            Operator.DIVISION -> num1 / num2
+            Operator.DIVISION -> {
+                if (num2 != 0.0) {
+                    num1 / num2
+                } else {
+                    0.0
+                }
+
+            }
            else -> 0.0
         }
     }

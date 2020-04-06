@@ -34,7 +34,7 @@ class CalculatorButton: RelativeLayout {
 
     var type: Type? = null
     private var savedNumber: Double = 0.0
-    private val decimalFormat = DecimalFormat("#.###")
+    private val decimalFormat = DecimalFormat("#.#")
 
     constructor(context: Context?, type: Type) : super(context) {
         initializeView(context)
