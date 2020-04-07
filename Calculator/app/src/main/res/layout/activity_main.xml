@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@color/lightModeBackgroundColor">
-
+    android:background="?attr/backgroundColor">
 
 
     <!--  CHANGE THIS ICON LATER      -->
@@ -17,10 +16,11 @@
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/ic_sun"
+        android:src="@drawable/ic_moon_transparent"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:padding="10dp"/>
+        android:padding="12dp"
+        android:onClick="onClickChangeTheme"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:textAlignment="center"
             android:fontFamily="@font/ptsans_regular"
-            android:textColor="@color/lightModeHeaderFontSubColor"
+            android:textColor="?attr/headerFontSubColor"
             android:text="100+24"/>
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:textSize="50sp"
             android:fontFamily="@font/ptsans_bold"
-            android:textColor="@color/lightModeHeaderFontMainColor"
+            android:textColor="?attr/headerFontMainColor"
             android:textAlignment="center"
             android:text="124"/>
 

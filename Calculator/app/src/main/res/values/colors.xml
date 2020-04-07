@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--    LIGHT MODE-->
+    <!--    LIGHT MODE    -->
     <color name="lightModeBackgroundColor">#FCFCFC</color>
-
-<!--    HEADER  -->
     <color name="lightModeHeaderFontMainColor">#222222</color>
     <color name="lightModeHeaderFontSubColor">#222222</color>
-
     <color name="lightModeFontBlackColor">#222222</color>
-    <color name="lightModeFontWhiteColor">#FFFFFF</color>
+<!--    <color name="lightModeFontWhiteColor">#FFFFFF</color>-->
     <color name="lightModeEmptyMemoryButtonColor">#F7F7F7</color>
     <color name="lightModeNumberButtonColor">#ECEFF4</color>
     <color name="lightModeEraseButtonColor">#FF7C7C</color>
     <color name="lightModeOperationButtonColor">#F0C200</color>
     <color name="lightModeOperationActiveButtonColor">#956B00</color>
     <color name="lightModeCalculateButtonColor">#03D17A</color>
+
+
+    <!--    DARK MODE    -->
+    <color name="darkModeBackgroundColor">#28292B</color>
+    <color name="darkModeHeaderFontMainColor">#FFFFFF</color>
+    <color name="darkModeHeaderFontSubColor">#A7A5A5</color>
+    <color name="darkModeFontColor">#FFFFFF</color>
+    <color name="darkModeEmptyMemoryButtonColor">#2D2F33</color>
+    <color name="darkModeNumberButtonColor">#34383C</color>
+    <color name="darkModeEraseButtonColor">#AD3E3E</color>
+    <color name="darkModeOperationButtonColor">#F0C200</color>
+    <color name="darkModeOperationActiveButtonColor">#956B00</color>
+    <color name="darkModeCalculateButtonColor">#03D17A</color>
 
 
     <color name="colorPrimary">#6200EE</color>

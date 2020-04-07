@@ -106,10 +106,12 @@ class CalculatorButton: RelativeLayout {
                 // Show "+"
                 buttonImage.visibility = View.VISIBLE
                 buttonText.visibility = View.INVISIBLE
+                buttonLayout.setBackgroundResource(R.drawable.empty_memory_slot_button)
             } else {
                 // Show number
                 buttonImage.visibility = View.INVISIBLE
                 buttonText.text = decimalFormat.format(savedNumber)
+                buttonLayout.setBackgroundResource(R.drawable.number_button)
 
                 when {
                     buttonText.text.length < 3 -> {

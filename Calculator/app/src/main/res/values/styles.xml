@@ -1,12 +1,50 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
         <item name="android:windowFullscreen">true</item>
-        <!-- Customize your theme here. -->
+        <item name="android:windowDisablePreview">true</item>
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--   COLORS-->
+        <item name="backgroundColor">@color/lightModeBackgroundColor</item>
+        <item name="headerFontMainColor">@color/lightModeHeaderFontMainColor</item>
+        <item name="headerFontSubColor">@color/lightModeHeaderFontSubColor</item>
+        <item name="fontColor">@color/lightModeFontBlackColor</item>
+        <item name="emptyMemoryButtonColor">@color/lightModeEmptyMemoryButtonColor</item>
+        <item name="numberButtonColor">@color/lightModeNumberButtonColor</item>
+        <item name="eraseButtonColor">@color/lightModeEraseButtonColor</item>
+        <item name="operationButtonColor">@color/lightModeOperationButtonColor</item>
+        <item name="operationActiveButtonColor">@color/lightModeOperationActiveButtonColor</item>
+        <item name="calculationButtonColor">@color/lightModeCalculateButtonColor</item>
+    </style>
+
+
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDisablePreview">true</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--   COLORS-->
+        <item name="backgroundColor">@color/darkModeBackgroundColor</item>
+        <item name="headerFontMainColor">@color/darkModeHeaderFontMainColor</item>
+        <item name="headerFontSubColor">@color/darkModeHeaderFontSubColor</item>
+        <item name="fontColor">@color/darkModeFontColor</item>
+        <item name="emptyMemoryButtonColor">@color/darkModeEmptyMemoryButtonColor</item>
+        <item name="numberButtonColor">@color/darkModeNumberButtonColor</item>
+        <item name="eraseButtonColor">@color/darkModeEraseButtonColor</item>
+        <item name="operationButtonColor">@color/darkModeOperationButtonColor</item>
+        <item name="operationActiveButtonColor">@color/darkModeOperationButtonColor</item>
+        <item name="calculationButtonColor">@color/darkModeCalculateButtonColor</item>
     </style>
 
 </resources>

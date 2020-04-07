@@ -12,4 +12,17 @@
             <enum name="calculation" value="4"/>
         </attr>
     </declare-styleable>
+
+
+    <attr name="backgroundColor" format="reference"/>
+    <attr name="headerFontMainColor" format="reference"/>
+    <attr name="headerFontSubColor" format="reference"/>
+    <attr name="fontColor" format="reference"/>
+    <attr name="emptyMemoryButtonColor" format="reference"/>
+    <attr name="numberButtonColor" format="reference"/>
+    <attr name="eraseButtonColor" format="reference"/>
+    <attr name="operationButtonColor" format="reference"/>
+    <attr name="operationActiveButtonColor" format="reference"/>
+    <attr name="calculationButtonColor" format="reference"/>
+
 </resources>

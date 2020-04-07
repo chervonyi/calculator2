@@ -1,16 +1,20 @@
 package room106.calculator
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import java.text.DecimalFormat
 
 
 class MainActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var buttonChangeTheme: ImageButton
     private lateinit var supportingTextView: TextView
     private lateinit var mainTextView: TextView
     private var memorySlots = ArrayList<CalculatorButton>()
@@ -26,11 +30,16 @@ class MainActivity : AppCompatActivity() {
     private var operator: Operator? = null
     private var numberIsSaved = false
 
-    enum class Operator {
-        ADDITION,
-        SUBTRACTION,
-        MULTIPLICATION,
-        DIVISION
+    enum class Operator(val value: Int) {
+        ADDITION(0),
+        SUBTRACTION(1),
+        MULTIPLICATION(2),
+        DIVISION(3);
+
+        companion object {
+            private val values = Operator.values()
+            fun getByValue(value: Int) = values.firstOrNull { it.value == value }
+        }
     }
 
     private val decimalFormat = DecimalFormat("#.###")
@@ -48,7 +57,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.LightTheme)
+        }
         setContentView(R.layout.activity_main)
+
+        buttonChangeTheme = findViewById(R.id.buttonChangeTheme)
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            buttonChangeTheme.setImageResource(R.drawable.ic_sun)
+        } else {
+            buttonChangeTheme.setImageResource(R.drawable.ic_moon_transparent)
+        }
+
+
 
         supportingTextView = findViewById(R.id.supportingTextView)
         mainTextView = findViewById(R.id.mainTextView)
@@ -64,6 +88,17 @@ class MainActivity : AppCompatActivity() {
         memorySlots.add(findViewById(R.id.buttonMemory0))
         memorySlots.add(findViewById(R.id.buttonMemory1))
         memorySlots.add(findViewById(R.id.buttonMemory2))
+
+        // Load data (if saved before)
+        if (intent.hasExtra("memory0")) {
+            memory[0] =  intent.extras!!.getDouble("memory0")
+            memory[1] =  intent.extras!!.getDouble("memory1")
+            memory[2] =  intent.extras!!.getDouble("memory2")
+
+            memorySlots[0].setMemory(memory[0])
+            memorySlots[1].setMemory(memory[1])
+            memorySlots[2].setMemory(memory[2])
+        }
 
         // Assign Long Click Listener to memory buttons
         for (memoryButton in memorySlots) {
@@ -95,6 +130,12 @@ class MainActivity : AppCompatActivity() {
         val typedNumber = mainTextView.text.toString().toDouble()
         val selectedOperator = getOperatorType(v.id)
 
+        if (numberIsSaved) {
+            operator = selectedOperator
+            highlightOperator(operator)
+            return
+        }
+
         if (num1 == null) {
             num1 = typedNumber
             operator = selectedOperator
@@ -117,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
             val result = calculate(num1!!, typedNumber, operator)
-            num1 = null
+            num1 = result
             operator = null
             displayResult(result)
             numberIsSaved = true
@@ -137,6 +178,7 @@ class MainActivity : AppCompatActivity() {
                 val result = calculate(num1!!, typedNumber, operator)
                 num1 = null
                 operator = null
+                highlightOperator(null)
                 displayResult(result)
                 numberIsSaved = true
                 saveNumberAt(result, position)
@@ -209,6 +251,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainTextView.text = expression
+    }
+
+    fun onClickChangeTheme(v: View) {
+        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
+        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
+        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
+        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        finish()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("memory0",  memory[0])
+        intent.putExtra("memory1",  memory[1])
+        intent.putExtra("memory2",  memory[2])
+        startActivity(intent)
+        finish()
+
+        overridePendingTransition(R.anim.enter_from_right, R.anim.freeze)
     }
     //endregion
 
