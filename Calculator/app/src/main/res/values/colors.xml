@@ -5,14 +5,18 @@
     <color name="lightModeBackgroundColor">#FCFCFC</color>
     <color name="lightModeHeaderFontMainColor">#222222</color>
     <color name="lightModeHeaderFontSubColor">#222222</color>
-    <color name="lightModeFontBlackColor">#222222</color>
-<!--    <color name="lightModeFontWhiteColor">#FFFFFF</color>-->
+    <color name="lightModeFontColor">#222222</color>
     <color name="lightModeEmptyMemoryButtonColor">#F7F7F7</color>
+    <color name="lightModeEmptyMemoryButtonPressedColor">#F3F3F3</color>
     <color name="lightModeNumberButtonColor">#ECEFF4</color>
+    <color name="lightModeNumberButtonPressedColor">#DDE2EA</color>
     <color name="lightModeEraseButtonColor">#FF7C7C</color>
+    <color name="lightModeEraseButtonPressedColor">#E66E6E</color>
     <color name="lightModeOperationButtonColor">#F0C200</color>
-    <color name="lightModeOperationActiveButtonColor">#956B00</color>
+    <color name="lightModeOperationButtonPressedColor">#EFA207</color>
+    <color name="lightModeOperationActiveButtonColor">#EFA207</color>
     <color name="lightModeCalculateButtonColor">#03D17A</color>
+    <color name="lightModeCalculateButtonPressedColor">#04B369</color>
 
 
     <!--    DARK MODE    -->
@@ -21,13 +25,18 @@
     <color name="darkModeHeaderFontSubColor">#A7A5A5</color>
     <color name="darkModeFontColor">#FFFFFF</color>
     <color name="darkModeEmptyMemoryButtonColor">#2D2F33</color>
+    <color name="darkModeEmptyMemoryButtonPressedColor">#2C2E32</color>
     <color name="darkModeNumberButtonColor">#34383C</color>
-    <color name="darkModeEraseButtonColor">#AD3E3E</color>
+    <color name="darkModeNumberButtonPressedColor">#303439</color>
+    <color name="darkModeEraseButtonColor">#CD3939</color>
+    <color name="darkModeEraseButtonPressedColor">#B63131</color>
     <color name="darkModeOperationButtonColor">#F0C200</color>
-    <color name="darkModeOperationActiveButtonColor">#956B00</color>
-    <color name="darkModeCalculateButtonColor">#03D17A</color>
+    <color name="darkModeOperationButtonPressedColor">#E69405</color>
+    <color name="darkModeOperationActiveButtonColor">#E69405</color>
+    <color name="darkModeCalculateButtonColor">#04B369</color>
+    <color name="darkModeCalculateButtonPressedColor">#039E5C</color>
 
-
+    <!--    SYSTEM    -->
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>

@@ -14,13 +14,18 @@
         <item name="backgroundColor">@color/lightModeBackgroundColor</item>
         <item name="headerFontMainColor">@color/lightModeHeaderFontMainColor</item>
         <item name="headerFontSubColor">@color/lightModeHeaderFontSubColor</item>
-        <item name="fontColor">@color/lightModeFontBlackColor</item>
+        <item name="fontColor">@color/lightModeFontColor</item>
         <item name="emptyMemoryButtonColor">@color/lightModeEmptyMemoryButtonColor</item>
+        <item name="emptyMemoryButtonPressedColor">@color/lightModeEmptyMemoryButtonPressedColor</item>
         <item name="numberButtonColor">@color/lightModeNumberButtonColor</item>
+        <item name="numberButtonPressedColor">@color/lightModeNumberButtonPressedColor</item>
         <item name="eraseButtonColor">@color/lightModeEraseButtonColor</item>
+        <item name="eraseButtonPressedColor">@color/lightModeEraseButtonPressedColor</item>
         <item name="operationButtonColor">@color/lightModeOperationButtonColor</item>
+        <item name="operationButtonPressedColor">@color/lightModeOperationButtonPressedColor</item>
         <item name="operationActiveButtonColor">@color/lightModeOperationActiveButtonColor</item>
         <item name="calculationButtonColor">@color/lightModeCalculateButtonColor</item>
+        <item name="calculationButtonPressedColor">@color/lightModeCalculateButtonPressedColor</item>
     </style>
 
 
@@ -40,11 +45,16 @@
         <item name="headerFontSubColor">@color/darkModeHeaderFontSubColor</item>
         <item name="fontColor">@color/darkModeFontColor</item>
         <item name="emptyMemoryButtonColor">@color/darkModeEmptyMemoryButtonColor</item>
+        <item name="emptyMemoryButtonPressedColor">@color/darkModeEmptyMemoryButtonPressedColor</item>
         <item name="numberButtonColor">@color/darkModeNumberButtonColor</item>
+        <item name="numberButtonPressedColor">@color/darkModeNumberButtonPressedColor</item>
         <item name="eraseButtonColor">@color/darkModeEraseButtonColor</item>
+        <item name="eraseButtonPressedColor">@color/darkModeEraseButtonPressedColor</item>
         <item name="operationButtonColor">@color/darkModeOperationButtonColor</item>
-        <item name="operationActiveButtonColor">@color/darkModeOperationButtonColor</item>
+        <item name="operationButtonPressedColor">@color/darkModeOperationButtonPressedColor</item>
+        <item name="operationActiveButtonColor">@color/darkModeOperationActiveButtonColor</item>
         <item name="calculationButtonColor">@color/darkModeCalculateButtonColor</item>
+        <item name="calculationButtonPressedColor">@color/darkModeCalculateButtonPressedColor</item>
     </style>
 
 </resources>

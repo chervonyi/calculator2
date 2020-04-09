@@ -19,10 +19,15 @@
     <attr name="headerFontSubColor" format="reference"/>
     <attr name="fontColor" format="reference"/>
     <attr name="emptyMemoryButtonColor" format="reference"/>
+    <attr name="emptyMemoryButtonPressedColor" format="reference"/>
     <attr name="numberButtonColor" format="reference"/>
+    <attr name="numberButtonPressedColor" format="reference"/>
     <attr name="eraseButtonColor" format="reference"/>
+    <attr name="eraseButtonPressedColor" format="reference"/>
     <attr name="operationButtonColor" format="reference"/>
+    <attr name="operationButtonPressedColor" format="reference"/>
     <attr name="operationActiveButtonColor" format="reference"/>
     <attr name="calculationButtonColor" format="reference"/>
+    <attr name="calculationButtonPressedColor" format="reference"/>
 
 </resources>

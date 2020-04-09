@@ -25,6 +25,7 @@
         android:layout_height="26dp"
         android:src="@drawable/ic_sun"
         android:layout_centerInParent="true"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:background="@null"/>
 
 </RelativeLayout>

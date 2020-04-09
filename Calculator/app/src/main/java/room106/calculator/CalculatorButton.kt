@@ -135,13 +135,7 @@ class CalculatorButton: RelativeLayout {
     }
 
     fun setActivationOperatorButton(isActive: Boolean) {
-        if (type!! == Type.OPERATION) {
-            if (isActive) {
-                buttonLayout.setBackgroundResource(R.drawable.operation_active_button)
-            } else {
-                buttonLayout.setBackgroundResource(R.drawable.operation_button)
-            }
-        }
+        buttonLayout.isSelected = isActive
     }
 
 }
