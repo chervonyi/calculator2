@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
     // Calculator Engine
     private var num1: Double? = null
     private var operator: Operator? = null
-    private var numberIsSaved = false
+    private var numberIsReady = false
+    private var operatorMayBeChanged = false
 
     enum class Operator(val value: Int) {
         ADDITION(0),
@@ -73,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         supportingTextView = findViewById(R.id.supportingTextView)
         mainTextView = findViewById(R.id.mainTextView)
         additionOperatorButton = findViewById(R.id.buttonOpAdd)
@@ -112,8 +112,8 @@ class MainActivity : AppCompatActivity() {
         var expression = mainTextView.text.toString()
         val typedDigit = (v as CalculatorButton).getText()
 
-        if (numberIsSaved) {
-            numberIsSaved = false
+        if (numberIsReady) {
+            numberIsReady = false
             expression = ""
         }
 
@@ -124,44 +124,38 @@ class MainActivity : AppCompatActivity() {
         }
 
         highlightOperator(null)
+        operatorMayBeChanged = false
     }
 
     fun onClickOperationButton(v: View) {
         val typedNumber = mainTextView.text.toString().toDouble()
         val selectedOperator = getOperatorType(v.id)
 
-        if (numberIsSaved) {
-            operator = selectedOperator
-            highlightOperator(operator)
-            return
-        }
-
         if (num1 == null) {
             num1 = typedNumber
-            operator = selectedOperator
-            highlightOperator(operator)
-        } else {
+        } else if (operator != null && !operatorMayBeChanged) {
             val result = calculate(num1!!, typedNumber, operator)
             num1 = result
             displayResult(result)
-            operator = selectedOperator
-            highlightOperator(operator)
         }
-        numberIsSaved = true
+
+        operator = selectedOperator
+        highlightOperator(operator)
+        numberIsReady = true
+        operatorMayBeChanged = true
+
     }
 
     fun onClickCalculationButton(v: View) {
         val typedNumber = mainTextView.text.toString().toDouble()
 
-        if (num1 == null && operator == null) {
-            return
-        } else {
+        if (num1 != null && operator != null) {
             Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
             val result = calculate(num1!!, typedNumber, operator)
-            num1 = result
             operator = null
+            num1 = null
             displayResult(result)
-            numberIsSaved = true
+            numberIsReady = true
         }
     }
 
@@ -172,22 +166,24 @@ class MainActivity : AppCompatActivity() {
 
             val typedNumber = mainTextView.text.toString().toDouble()
 
-            if (num1 == null && operator == null) {
-                saveNumberAt(typedNumber, position)
-            } else {
+            if (num1 != null && operator != null) {
+                // Calculate new number and save it
                 val result = calculate(num1!!, typedNumber, operator)
-                num1 = null
-                operator = null
-                highlightOperator(null)
                 displayResult(result)
-                numberIsSaved = true
                 saveNumberAt(result, position)
+            } else {
+                // Save number that typed
+                saveNumberAt(typedNumber, position)
             }
 
+            num1 = null
+            operator = null
+            highlightOperator(null)
             mainTextView.text = "0"
         } else {
             useNumberFrom(position)
         }
+        operatorMayBeChanged = false
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
@@ -195,15 +191,15 @@ class MainActivity : AppCompatActivity() {
 
         val typedNumber = mainTextView.text.toString().toDouble()
 
-        if (num1 == null && operator == null) {
-            saveNumberAt(typedNumber, position)
-        } else {
+        if (num1 != null && operator != null) {
             val result = calculate(num1!!, typedNumber, operator)
             num1 = null
             operator = null
             displayResult(result)
-            numberIsSaved = true
+            numberIsReady = true
             saveNumberAt(result, position)
+        } else {
+            saveNumberAt(typedNumber, position)
         }
 
         mainTextView.text = "0"
@@ -237,8 +233,8 @@ class MainActivity : AppCompatActivity() {
                 expression.isEmpty() -> {
                     expression = "0$DECIMAL_POINT"
                 }
-                numberIsSaved -> {
-                    numberIsSaved = false
+                numberIsReady -> {
+                    numberIsReady = false
                     expression = "0$DECIMAL_POINT"
                 }
                 else -> {
@@ -246,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        else if (numberIsSaved) {
+        else if (numberIsReady) {
             expression = "0$DECIMAL_POINT"
         }
 
@@ -288,7 +284,7 @@ class MainActivity : AppCompatActivity() {
         highlightOperator(null)
 
         // Test:?
-        numberIsSaved = true
+        numberIsReady = true
     }
 
     private fun saveNumberAt(value: Double, position: Int) {
@@ -312,7 +308,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     0.0
                 }
-
             }
            else -> 0.0
         }
