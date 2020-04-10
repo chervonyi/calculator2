@@ -69,6 +69,9 @@ class CalculatorButton: RelativeLayout {
         buttonLayout = findViewById(R.id.buttonLayout)
         buttonText = findViewById(R.id.buttonText)
         buttonImage = findViewById(R.id.buttonImage)
+
+        isSoundEffectsEnabled = false
+
     }
 
     private fun implementAttrs(context: Context?, attrs: AttributeSet?) {

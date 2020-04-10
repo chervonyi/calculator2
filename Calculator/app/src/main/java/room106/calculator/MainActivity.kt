@@ -1,6 +1,7 @@
 package room106.calculator
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private var operator: Operator? = null
     private var numberIsReady = false
     private var operatorMayBeChanged = false
+
+    private lateinit var buttonSound: MediaPlayer
 
     enum class Operator(val value: Int) {
         ADDITION(0),
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             buttonChangeTheme.setImageResource(R.drawable.ic_moon_transparent)
         }
 
-
+        buttonSound = MediaPlayer.create(this, R.raw.button_click_sound)
         supportingTextView = findViewById(R.id.supportingTextView)
         mainTextView = findViewById(R.id.mainTextView)
         additionOperatorButton = findViewById(R.id.buttonOpAdd)
@@ -109,6 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     //region Listeners
     fun onClickDigit(v: View) {
+        buttonSound.start()
         var expression = mainTextView.text.toString()
         val typedDigit = (v as CalculatorButton).getText()
 
@@ -128,6 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickOperationButton(v: View) {
+        buttonSound.start()
         val typedNumber = mainTextView.text.toString().toDouble()
         val selectedOperator = getOperatorType(v.id)
 
@@ -147,6 +152,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickCalculationButton(v: View) {
+        buttonSound.start()
         val typedNumber = mainTextView.text.toString().toDouble()
 
         if (num1 != null && operator != null) {
@@ -160,6 +166,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickMemoryButton(v: View) {
+        buttonSound.start()
         val position = resources.getResourceName(v.id).last().toString().toInt()
 
         if(isMemorySlotEmpty(position)) {
@@ -187,6 +194,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
+        buttonSound.start()
         val position = resources.getResourceName(it.id).last().toString().toInt()
 
         val typedNumber = mainTextView.text.toString().toDouble()
@@ -208,7 +216,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEraseButton(v: View) {
-
+        buttonSound.start()
         if (mainTextView.text.isEmpty() || mainTextView.text == "0") {
             // Total clear (saved num1 and saved operation)
             operator = null
@@ -225,31 +233,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickDecimalPoint(v: View) {
-
+        buttonSound.start()
         var expression = mainTextView.text.toString()
 
-        if (!expression.contains(DECIMAL_POINT)) {
-            when {
-                expression.isEmpty() -> {
-                    expression = "0$DECIMAL_POINT"
-                }
-                numberIsReady -> {
-                    numberIsReady = false
-                    expression = "0$DECIMAL_POINT"
-                }
-                else -> {
-                    expression += DECIMAL_POINT
-                }
-            }
-        }
-        else if (numberIsReady) {
+        if (numberIsReady) {
             expression = "0$DECIMAL_POINT"
+            numberIsReady = false
+        } else if (!expression.contains(DECIMAL_POINT)) {
+            if (expression.isEmpty()) {
+                expression = "0$DECIMAL_POINT"
+            } else {
+                expression += DECIMAL_POINT
+            }
         }
 
         mainTextView.text = expression
+        operatorMayBeChanged = false
     }
 
     fun onClickChangeTheme(v: View) {
+        buttonSound.start()
         // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
         // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
         // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
