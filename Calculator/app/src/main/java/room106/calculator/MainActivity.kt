@@ -253,10 +253,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickChangeTheme(v: View) {
         buttonSound.start()
-        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
-        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
-        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
-        // TODO - MAKE buttonChangeTheme NOT AVAILABLE AFTER CLICK!!!
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -271,8 +267,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("memory2",  memory[2])
         startActivity(intent)
         finish()
-
-        overridePendingTransition(R.anim.enter_from_right, R.anim.freeze)
     }
     //endregion
 

@@ -46,8 +46,10 @@
             android:textSize="50sp"
             android:fontFamily="@font/ptsans_bold"
             android:textColor="?attr/headerFontMainColor"
+            android:maxLines="1"
+            android:maxLength="9"
             android:textAlignment="center"
-            android:text="124"/>
+            android:text="123456789"/>
 
     </LinearLayout>
 
