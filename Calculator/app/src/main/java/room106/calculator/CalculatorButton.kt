@@ -27,7 +27,6 @@ class CalculatorButton: RelativeLayout {
         }
     }
 
-
     private lateinit var buttonLayout: RelativeLayout
     private lateinit var buttonText: TextView
     private lateinit var buttonImage: ImageView
@@ -141,4 +140,7 @@ class CalculatorButton: RelativeLayout {
         buttonLayout.isSelected = isActive
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec)
+    }
 }

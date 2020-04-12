@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     // Views
     private lateinit var buttonChangeTheme: ImageButton
-    private lateinit var supportingTextView: TextView
     private lateinit var mainTextView: TextView
     private var memorySlots = ArrayList<CalculatorButton>()
 
@@ -84,14 +83,12 @@ class MainActivity : AppCompatActivity() {
         buttonSound = MediaPlayer.create(this, R.raw.button_click_sound)
 
         // Connect all views
-        supportingTextView = findViewById(R.id.supportingTextView)
         mainTextView = findViewById(R.id.mainTextView)
         additionOperatorButton = findViewById(R.id.buttonOpAdd)
         subtractionOperatorButton = findViewById(R.id.buttonOpSubtract)
         multiplicationOperatorButton = findViewById(R.id.buttonOpMultiply)
         divisionOperatorButton = findViewById(R.id.buttonOpDivision)
 
-        supportingTextView.visibility = View.INVISIBLE
         mainTextView.text = "0"
 
         // Connect memory buttons
