@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private var operatorMayBeChanged = false
 
     private lateinit var buttonSound: MediaPlayer
+    private lateinit var mPreferredThemeManager: PreferredThemeManager
 
     enum class Operator(val value: Int) {
         ADDITION(0),
@@ -62,21 +63,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        // Set up theme
+        mPreferredThemeManager = PreferredThemeManager(this)
+        if (mPreferredThemeManager.getPreferredTheme() == PreferredThemeManager.Mode.DarkTheme) {
             setTheme(R.style.DarkTheme)
         } else {
             setTheme(R.style.LightTheme)
         }
         setContentView(R.layout.activity_main)
 
+        // Set up appropriate icon (sun or moon) according to Preferred Theme
         buttonChangeTheme = findViewById(R.id.buttonChangeTheme)
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (mPreferredThemeManager.getPreferredTheme() == PreferredThemeManager.Mode.DarkTheme) {
             buttonChangeTheme.setImageResource(R.drawable.ic_sun)
         } else {
             buttonChangeTheme.setImageResource(R.drawable.ic_moon_transparent)
         }
 
+        // Create button click sound effect
         buttonSound = MediaPlayer.create(this, R.raw.button_click_sound)
+
+        // Connect all views
         supportingTextView = findViewById(R.id.supportingTextView)
         mainTextView = findViewById(R.id.mainTextView)
         additionOperatorButton = findViewById(R.id.buttonOpAdd)
@@ -254,13 +261,9 @@ class MainActivity : AppCompatActivity() {
     fun onClickChangeTheme(v: View) {
         buttonSound.start()
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+        mPreferredThemeManager.changePreferredTheme()
 
-        finish()
+        // Prepare Intent instant to migrate with memory-slot values
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("memory0",  memory[0])
         intent.putExtra("memory1",  memory[1])
