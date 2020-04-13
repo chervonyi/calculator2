@@ -29,8 +29,9 @@
         <item name="operationButtonPressedColor">@color/lightModeOperationButtonPressedColor</item>
         <item name="operationActiveButtonColor">@color/lightModeOperationActiveButtonColor</item>
         <item name="calculationButtonColor">@color/lightModeCalculateButtonColor</item>
-        <item name="calculationButtonPressedColor">@color/lightModeCalculateButtonPressedColor
-        </item>
+        <item name="calculationButtonPressedColor">@color/lightModeCalculateButtonPressedColor</item>
+        <item name="infoPanelBackgroundColor">@color/lightModeInfoPanelBackgroundColor</item>
+        <item name="infoPanelFontColor">@color/lightModeInfoPanelFontColor</item>
     </style>
 
 
@@ -62,5 +63,7 @@
         <item name="operationActiveButtonColor">@color/darkModeOperationActiveButtonColor</item>
         <item name="calculationButtonColor">@color/darkModeCalculateButtonColor</item>
         <item name="calculationButtonPressedColor">@color/darkModeCalculateButtonPressedColor</item>
+        <item name="infoPanelBackgroundColor">@color/darkModeInfoPanelBackgroundColor</item>
+        <item name="infoPanelFontColor">@color/darkModeInfoPanelFontColor</item>
     </style>
 </resources>

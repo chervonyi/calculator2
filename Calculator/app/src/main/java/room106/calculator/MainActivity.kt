@@ -1,14 +1,18 @@
 package room106.calculator
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.animation.TranslateAnimation
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import java.text.DecimalFormat
 
 
@@ -17,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     // Views
     private lateinit var buttonChangeTheme: ImageButton
     private lateinit var mainTextView: TextView
+    private lateinit var infoPanelView: InfoPanelView
     private var memorySlots = ArrayList<CalculatorButton>()
 
     private lateinit var additionOperatorButton: CalculatorButton
@@ -33,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var buttonSound: MediaPlayer
     private lateinit var mPreferredThemeManager: PreferredThemeManager
+    private lateinit var mInfoManager: InfoManager
 
     enum class Operator(val value: Int) {
         ADDITION(0),
@@ -88,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         subtractionOperatorButton = findViewById(R.id.buttonOpSubtract)
         multiplicationOperatorButton = findViewById(R.id.buttonOpMultiply)
         divisionOperatorButton = findViewById(R.id.buttonOpDivision)
+        infoPanelView = findViewById(R.id.infoPanelView)
 
         mainTextView.text = "0"
 
@@ -111,6 +118,9 @@ class MainActivity : AppCompatActivity() {
         for (memoryButton in memorySlots) {
             memoryButton.setOnLongClickListener(onLongClickOnMemorySlotButton)
         }
+
+        mInfoManager = InfoManager(this)
+        checkTutorialRequest()
     }
 
 
@@ -173,6 +183,7 @@ class MainActivity : AppCompatActivity() {
         buttonSound.start()
         val position = resources.getResourceName(v.id).last().toString().toInt()
 
+
         if(isMemorySlotEmpty(position)) {
 
             val typedNumber = mainTextView.text.toString().toDouble()
@@ -185,6 +196,13 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // Save number that typed
                 saveNumberAt(typedNumber, position)
+
+                // Tutorial #1 has been passed
+                if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo1ShownBefore && typedNumber != 0.0) {
+                    Toast.makeText(this, "Tutorial #1 has been passed", Toast.LENGTH_LONG).show()
+                    mInfoManager.hasInfo1ShownBefore = true
+                    hideInfoPanel()
+                }
             }
 
             num1 = null
@@ -202,6 +220,13 @@ class MainActivity : AppCompatActivity() {
         val position = resources.getResourceName(it.id).last().toString().toInt()
 
         val typedNumber = mainTextView.text.toString().toDouble()
+
+        // Tutorial #2 has been passed
+        if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo2ShownBefore && typedNumber != 0.0) {
+            Toast.makeText(this, "Tutorial #2 has been passed", Toast.LENGTH_LONG).show()
+            mInfoManager.hasInfo2ShownBefore = true
+            hideInfoPanel()
+        }
 
         if (num1 != null && operator != null) {
             val result = calculate(num1!!, typedNumber, operator)
@@ -280,7 +305,6 @@ class MainActivity : AppCompatActivity() {
         mainTextView.text = decimalFormat.format(memory[position])
         highlightOperator(null)
 
-        // Test:?
         numberIsReady = true
     }
 
@@ -329,6 +353,51 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayResult(result: Double) {
         mainTextView.text = decimalFormat.format(result)
+    }
+
+    private fun checkTutorialRequest() {
+        if (!mInfoManager.hasInfo1ShownBefore) {
+            showInfoPanel(resources.getString(R.string.info_1))
+        } else {
+            if (!mInfoManager.hasInfo2ShownBefore) {
+                showInfoPanel(resources.getString(R.string.info_2))
+            } else {
+                // User has passed all tutorials
+                buttonChangeTheme.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun showInfoPanel(text: String) {
+        if (infoPanelView.visibility == View.VISIBLE) { return }
+        Handler().postDelayed({
+            infoPanelView.alpha = 0f
+            infoPanelView.text = text
+
+            infoPanelView.animate()
+                .alpha(1.0f)
+                .setDuration(500)
+                .setListener(object: AnimatorListenerAdapter() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        infoPanelView.visibility = View.VISIBLE
+                    }
+                })
+        }, 3000)
+    }
+
+    private fun hideInfoPanel() {
+        if (infoPanelView.visibility == View.VISIBLE) {
+
+            infoPanelView.animate()
+                .alpha(0f)
+                .setDuration(500)
+                .setListener(object: AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        infoPanelView.visibility = View.INVISIBLE
+                        checkTutorialRequest()
+                    }
+                })
+        }
     }
     //endregion
 }

@@ -29,5 +29,7 @@
     <attr name="operationActiveButtonColor" format="reference"/>
     <attr name="calculationButtonColor" format="reference"/>
     <attr name="calculationButtonPressedColor" format="reference"/>
+    <attr name="infoPanelBackgroundColor" format="reference"/>
+    <attr name="infoPanelFontColor" format="reference"/>
 
 </resources>

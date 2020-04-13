@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Calculator</string>
+    <string name="expression_start">0</string>
+    <string name="change_theme_content_description">Change Theme</string>
+    
+    <string name="info_1">Use memory buttons to save frequently used numbers</string>
+    <string name="info_2">Use long click to rewrite memory slot value</string>
+    <string name="info_content_description">Info</string>
 </resources>

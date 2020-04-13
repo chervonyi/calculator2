@@ -17,6 +17,8 @@
     <color name="lightModeOperationActiveButtonColor">#EFA207</color>
     <color name="lightModeCalculateButtonColor">#03D17A</color>
     <color name="lightModeCalculateButtonPressedColor">#04B369</color>
+    <color name="lightModeInfoPanelBackgroundColor">#28292B</color>
+    <color name="lightModeInfoPanelFontColor">#FCFCFC</color>
 
 
     <!--    DARK MODE    -->
@@ -35,6 +37,8 @@
     <color name="darkModeOperationActiveButtonColor">#E69405</color>
     <color name="darkModeCalculateButtonColor">#04B369</color>
     <color name="darkModeCalculateButtonPressedColor">#039E5C</color>
+    <color name="darkModeInfoPanelBackgroundColor">#FCFCFC</color>
+    <color name="darkModeInfoPanelFontColor">#28292B</color>
 
     <!--    SYSTEM    -->
     <color name="colorPrimary">#6200EE</color>
