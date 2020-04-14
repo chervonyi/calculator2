@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="?attr/backgroundColor">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--  CHANGE THIS ICON LATER      -->
+        <ImageButton
+            android:id="@+id/buttonChangeTheme"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_moon_transparent"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
+            android:onClick="onClickChangeTheme"
+            android:contentDescription="@string/change_theme_content_description"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/mainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:fontFamily="@font/ptsans_bold"
+            android:textColor="?attr/headerFontMainColor"
+            android:maxLines="1"
+            android:maxLength="9"
+            android:textAlignment="center"
+            android:text="@string/expression_start"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonMemory0"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_plus"
+                    app:buttonBackground="@drawable/empty_memory_slot_button"
+                    app:type="memory"
+                    android:onClick="onClickMemoryButton" />
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonMemory1"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_plus"
+                    app:buttonBackground="@drawable/empty_memory_slot_button"
+                    app:type="memory"
+                    android:onClick="onClickMemoryButton"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonMemory2"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_plus"
+                    app:buttonBackground="@drawable/empty_memory_slot_button"
+                    app:type="memory"
+                    android:onClick="onClickMemoryButton"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonErase"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_erase"
+                    app:buttonBackground="@drawable/erase_button"
+                    app:type="erase"
+                    android:onClick="onClickEraseButton"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/numberDividerSize"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum7"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="7"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum8"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="8"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum9"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="9"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonOpDivision"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_division"
+                    app:buttonBackground="@drawable/operation_button"
+                    app:type="operation"
+                    android:onClick="onClickOperationButton"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/numberDividerSize"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum4"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="4"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum5"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="5"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum6"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="6"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonOpMultiply"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_multiply"
+                    app:buttonBackground="@drawable/operation_button"
+                    app:type="operation"
+                    android:onClick="onClickOperationButton"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/numberDividerSize"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum1"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="1"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum2"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="2"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum3"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="3"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonOpSubtract"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_subtract"
+                    app:buttonBackground="@drawable/operation_button"
+                    app:type="operation"
+                    android:onClick="onClickOperationButton"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/numberDividerSize"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonDecimalPoint"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="."
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDecimalPoint"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonNum0"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:text="0"
+                    app:buttonBackground="@drawable/number_button"
+                    app:type="digit"
+                    android:onClick="onClickDigit"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonCalculation"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_equal"
+                    app:buttonBackground="@drawable/calculation_button"
+                    app:type="calculation"
+                    android:onClick="onClickCalculationButton"/>
+
+                <Space
+                    android:layout_width="@dimen/numberDividerSize"
+                    android:layout_height="match_parent"/>
+
+                <room106.calculator.CalculatorButton
+                    android:id="@+id/buttonOpAdd"
+                    android:layout_width="@dimen/calculatorButtonSize"
+                    android:layout_height="@dimen/calculatorButtonSize"
+                    app:src="@drawable/ic_plus_white"
+                    app:buttonBackground="@drawable/operation_button"
+                    app:type="operation"
+                    android:onClick="onClickOperationButton"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <room106.calculator.InfoPanelView
+        android:id="@+id/infoPanelView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_margin="20dp"/>
+
+</FrameLayout>

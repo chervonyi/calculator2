@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="calculatorButtonSize">74dp</dimen>
+    <dimen name="calculatorButtonSize">100dp</dimen>
     <dimen name="calculatorButtonCornerRadius">26dp</dimen>
 
     <dimen name="numberDividerSize">16dp</dimen>
