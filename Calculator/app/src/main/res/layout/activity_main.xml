@@ -33,14 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:gravity="center"
             android:textSize="50sp"
             android:fontFamily="@font/ptsans_bold"
             android:textColor="?attr/headerFontMainColor"
-            android:maxLines="1"
-            android:maxLength="9"
+            android:ellipsize="middle"
             android:textAlignment="center"
-            android:text="@string/expression_start"/>
+            android:text="@string/expression_start"
+            android:singleLine="true" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,7 +2,9 @@ package room106.calculator
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -37,8 +39,11 @@ class MainActivity : AppCompatActivity() {
     private var operatorMayBeChanged = false
 
     private lateinit var buttonSound: MediaPlayer
+    private lateinit var audioSystem: AudioManager
     private lateinit var mPreferredThemeManager: PreferredThemeManager
     private lateinit var mInfoManager: InfoManager
+
+    private val MAX_DIGITS = 8
 
     enum class Operator(val value: Int) {
         ADDITION(0),
@@ -60,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         add(0.0)
     }
 
-    private val MAX_LENGTH = 30
     private val MEMORY_SLOTS_COUNT = memory.size
     private val DECIMAL_POINT = "."
 
@@ -87,6 +91,7 @@ class MainActivity : AppCompatActivity() {
 
         // Create button click sound effect
         buttonSound = MediaPlayer.create(this, R.raw.button_click_sound)
+        audioSystem = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
         // Connect all views
         mainTextView = findViewById(R.id.mainTextView)
@@ -126,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     //region Listeners
     fun onClickDigit(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         var expression = mainTextView.text.toString()
         val typedDigit = (v as CalculatorButton).getText()
 
@@ -135,10 +140,12 @@ class MainActivity : AppCompatActivity() {
             expression = ""
         }
 
-        if (expression == "0") {
-            mainTextView.text = typedDigit
-        } else {
-            mainTextView.text = expression + typedDigit
+        if (getDigitCount(expression) < MAX_DIGITS) {
+            if (expression == "0") {
+                mainTextView.text = typedDigit
+            } else {
+                mainTextView.text = expression + typedDigit
+            }
         }
 
         highlightOperator(null)
@@ -146,14 +153,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickOperationButton(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         val typedNumber = mainTextView.text.toString().toDouble()
         val selectedOperator = getOperatorType(v.id)
 
         if (num1 == null) {
             num1 = typedNumber
         } else if (operator != null && !operatorMayBeChanged) {
-            val result = calculate(num1!!, typedNumber, operator)
+            var result = calculate(num1!!, typedNumber, operator)
+
+            // In case of negative 0 make it as positive
+            if (result == 0.0) {
+                result = 0.0
+            }
+
             num1 = result
             displayResult(result)
         }
@@ -166,12 +179,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickCalculationButton(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         val typedNumber = mainTextView.text.toString().toDouble()
 
-        if (num1 != null && operator != null) {
-            Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
-            val result = calculate(num1!!, typedNumber, operator)
+        if (num1 != null && operator != null && !operatorMayBeChanged) {
+//            Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
+            var result = calculate(num1!!, typedNumber, operator)
+
+            // In case of negative 0 make it as positive
+            if (result == 0.0) {
+                result = 0.0
+            }
+
             operator = null
             num1 = null
             displayResult(result)
@@ -180,15 +199,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickMemoryButton(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         val position = resources.getResourceName(v.id).last().toString().toInt()
 
-
         if(isMemorySlotEmpty(position)) {
-
             val typedNumber = mainTextView.text.toString().toDouble()
 
-            if (num1 != null && operator != null) {
+            if (num1 != null && operator != null && !operatorMayBeChanged) {
                 // Calculate new number and save it
                 val result = calculate(num1!!, typedNumber, operator)
                 displayResult(result)
@@ -196,13 +213,13 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // Save number that typed
                 saveNumberAt(typedNumber, position)
+            }
 
-                // Tutorial #1 has been passed
-                if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo1ShownBefore && typedNumber != 0.0) {
-                    Toast.makeText(this, "Tutorial #1 has been passed", Toast.LENGTH_LONG).show()
-                    mInfoManager.hasInfo1ShownBefore = true
-                    hideInfoPanel()
-                }
+            // Check on Tutorial #1
+            if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo1ShownBefore && typedNumber != 0.0) {
+                Toast.makeText(this, "Tutorial #1 has been passed", Toast.LENGTH_LONG).show()
+                mInfoManager.hasInfo1ShownBefore = true
+                hideInfoPanel()
             }
 
             num1 = null
@@ -216,36 +233,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
-        buttonSound.start()
+        playButtonClickSound()
         val position = resources.getResourceName(it.id).last().toString().toInt()
 
         val typedNumber = mainTextView.text.toString().toDouble()
 
-        // Tutorial #2 has been passed
-        if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo2ShownBefore && typedNumber != 0.0) {
-            Toast.makeText(this, "Tutorial #2 has been passed", Toast.LENGTH_LONG).show()
-            mInfoManager.hasInfo2ShownBefore = true
-            hideInfoPanel()
-        }
-
-        if (num1 != null && operator != null) {
+        if (num1 != null && operator != null && !operatorMayBeChanged) {
             val result = calculate(num1!!, typedNumber, operator)
-            num1 = null
-            operator = null
             displayResult(result)
-            numberIsReady = true
+//            numberIsReady = true
             saveNumberAt(result, position)
         } else {
             saveNumberAt(typedNumber, position)
         }
 
+        // Check on Tutorial #2
+        if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo2ShownBefore && typedNumber != 0.0 && mInfoManager.hasInfo1ShownBefore) {
+            Toast.makeText(this, "Tutorial #2 has been passed", Toast.LENGTH_LONG).show()
+            mInfoManager.hasInfo2ShownBefore = true
+            hideInfoPanel()
+        }
+
+        num1 = null
+        operator = null
+        highlightOperator(null)
         mainTextView.text = "0"
 
         true
     }
 
     fun onClickEraseButton(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         if (mainTextView.text.isEmpty() || mainTextView.text == "0") {
             // Total clear (saved num1 and saved operation)
             operator = null
@@ -255,6 +273,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (operator != null) {
+            operatorMayBeChanged = true // ???
             highlightOperator(operator)
         }
 
@@ -262,17 +281,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickDecimalPoint(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
         var expression = mainTextView.text.toString()
 
-        if (numberIsReady) {
-            expression = "0$DECIMAL_POINT"
-            numberIsReady = false
-        } else if (!expression.contains(DECIMAL_POINT)) {
-            if (expression.isEmpty()) {
+        if (getDigitCount(expression) < MAX_DIGITS) {
+            if (numberIsReady) {
                 expression = "0$DECIMAL_POINT"
-            } else {
-                expression += DECIMAL_POINT
+                numberIsReady = false
+            } else if (!expression.contains(DECIMAL_POINT)) {
+                if (expression.isEmpty()) {
+                    expression = "0$DECIMAL_POINT"
+                } else {
+                    expression += DECIMAL_POINT
+                }
             }
         }
 
@@ -281,7 +302,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickChangeTheme(v: View) {
-        buttonSound.start()
+        playButtonClickSound()
 
         mPreferredThemeManager.changePreferredTheme()
 
@@ -398,6 +419,21 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
         }
+    }
+
+    private fun playButtonClickSound() {
+        if (audioSystem.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+            buttonSound.start()
+        }
+    }
+
+    private fun getDigitCount(str: String): Int {
+        var count = str.length
+
+        if (str.contains(DECIMAL_POINT)) {
+            count -= 1
+        }
+        return count
     }
     //endregion
 }
