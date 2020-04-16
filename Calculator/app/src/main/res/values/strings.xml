@@ -6,4 +6,6 @@
     <string name="info_1">Use memory buttons to save frequently used numbers</string>
     <string name="info_2">Press and hold memory button to rewrite a value</string>
     <string name="info_content_description">Info</string>
+    <string name="calculator_button_image_content_description">Button Image</string>
+    <string name="digit_button">8</string>
 </resources>

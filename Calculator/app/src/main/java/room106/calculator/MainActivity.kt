@@ -35,8 +35,11 @@ class MainActivity : AppCompatActivity() {
     // Calculator Engine
     private var num1: Double? = null
     private var operator: Operator? = null
+    private var operatorForCalculationInRow: Operator? = null
+    private var valueForCalculationInRow: Double? = null
     private var numberIsReady = false
     private var operatorMayBeChanged = false
+    private var calculationInRow = false
 
     private lateinit var buttonSound: MediaPlayer
     private lateinit var audioSystem: AudioManager
@@ -150,6 +153,7 @@ class MainActivity : AppCompatActivity() {
 
         highlightOperator(null)
         operatorMayBeChanged = false
+        calculationInRow = false
     }
 
     fun onClickOperationButton(v: View) {
@@ -175,14 +179,23 @@ class MainActivity : AppCompatActivity() {
         highlightOperator(operator)
         numberIsReady = true
         operatorMayBeChanged = true
-
+        calculationInRow = false
     }
 
     fun onClickCalculationButton(v: View) {
         playButtonClickSound()
         val typedNumber = mainTextView.text.toString().toDouble()
 
-        if (num1 != null && operator != null && !operatorMayBeChanged) {
+        if (calculationInRow) {
+            var result = calculate(typedNumber, valueForCalculationInRow!!, operatorForCalculationInRow)
+
+            if (result == 0.0) {
+                result = 0.0
+            }
+
+            displayResult(result)
+        }
+        else if (num1 != null && operator != null && !operatorMayBeChanged) {
 //            Log.d("TEST", "num1: $num1, typedNumber: $typedNumber, operator: $operator")
             var result = calculate(num1!!, typedNumber, operator)
 
@@ -190,6 +203,10 @@ class MainActivity : AppCompatActivity() {
             if (result == 0.0) {
                 result = 0.0
             }
+
+            valueForCalculationInRow = typedNumber
+            operatorForCalculationInRow = operator
+            calculationInRow = true
 
             operator = null
             num1 = null
@@ -217,7 +234,6 @@ class MainActivity : AppCompatActivity() {
 
             // Check on Tutorial #1
             if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo1ShownBefore && typedNumber != 0.0) {
-                Toast.makeText(this, "Tutorial #1 has been passed", Toast.LENGTH_LONG).show()
                 mInfoManager.hasInfo1ShownBefore = true
                 hideInfoPanel()
             }
@@ -230,6 +246,7 @@ class MainActivity : AppCompatActivity() {
             useNumberFrom(position)
         }
         operatorMayBeChanged = false
+        calculationInRow = false
     }
 
     private val onLongClickOnMemorySlotButton = View.OnLongClickListener {
@@ -249,7 +266,6 @@ class MainActivity : AppCompatActivity() {
 
         // Check on Tutorial #2
         if (infoPanelView.visibility == View.VISIBLE && !mInfoManager.hasInfo2ShownBefore && typedNumber != 0.0 && mInfoManager.hasInfo1ShownBefore) {
-            Toast.makeText(this, "Tutorial #2 has been passed", Toast.LENGTH_LONG).show()
             mInfoManager.hasInfo2ShownBefore = true
             hideInfoPanel()
         }
@@ -258,6 +274,8 @@ class MainActivity : AppCompatActivity() {
         operator = null
         highlightOperator(null)
         mainTextView.text = "0"
+        operatorMayBeChanged = false
+        calculationInRow = false
 
         true
     }
@@ -278,6 +296,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainTextView.text = "0"
+
+        calculationInRow = false
     }
 
     fun onClickDecimalPoint(v: View) {
@@ -299,6 +319,7 @@ class MainActivity : AppCompatActivity() {
 
         mainTextView.text = expression
         operatorMayBeChanged = false
+        calculationInRow = false
     }
 
     fun onClickChangeTheme(v: View) {
