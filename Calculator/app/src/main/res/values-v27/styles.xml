@@ -8,10 +8,12 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/lightModeInfoPanelBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/lightModeInfoPanelBackgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/lightModeBackgroundColor</item>
+        <item name="android:navigationBarColor">@color/lightModeBackgroundColor</item>
+        <item name="android:windowLightNavigationBar">true</item>
 
         <!--   COLORS-->
         <item name="backgroundColor">@color/lightModeBackgroundColor</item>
@@ -42,10 +44,12 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/darkModeInfoPanelBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/darkModeInfoPanelBackgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/darkModeBackgroundColor</item>
+        <item name="android:navigationBarColor">@color/darkModeBackgroundColor</item>
+        <item name="android:windowLightNavigationBar">false</item>
 
         <!--   COLORS-->
         <item name="backgroundColor">@color/darkModeBackgroundColor</item>
